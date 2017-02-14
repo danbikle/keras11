@@ -85,9 +85,25 @@ class Nnmodel(fr.Resource):
     predictions_df['prediction'] = predictions_l
     predictions_df['eff'] = np.sign(predictions_df.prediction-0.5) * predictions_df.pctlead
     predictions_df['acc'] = (predictions_df.eff > 0).astype(int)
-    
-    pdb.set_trace()    
-    return {'nothing':'yet'}
+
+    # I should report Accuracy:
+    len_i         = len(predictions_df)
+    accuracy_f    = 100 *  predictions_df.acc.sum()/len_i
+    lo_accuracy_f = 100 * (predictions_df.pctlead>0).astype(int).sum()/len_i
+    # I should report Effectiveness:
+    effectiveness_f    = predictions_df.eff.sum()
+    lo_effectiveness_f = predictions_df.pctlead.sum()
+
+    # I should talk to the End-User:
+    return {'tkr':                      tkr
+            ,'yr2predict':              yr2predict
+            ,'yrs2train':               yrs2train
+            ,'Effectiveness':           effectiveness_f
+            ,'Long Only Effectiveness': lo_effectiveness_f
+            ,'Accuracy':                accuracy_f
+            ,'Long Only Accuracy':      lo_accuracy_f
+    }
+
 
 api.add_resource(Nnmodel, '/nnmodel/<tkr>/<yr2predict>/<int:yrs2train>/<int:hlayers>/<int:neurons>')
 # curl localhost:5012/nnmodel/IBM/2017/3/2/3?features=pctlag1,slope2,dow,moy
