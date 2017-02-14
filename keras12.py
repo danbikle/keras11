@@ -13,6 +13,7 @@ import pdb
 import os
 import flask         as fl
 import flask_restful as fr
+import numpy         as np
 
 application = fl.Flask(__name__)
 api         = fr.Api(application)
@@ -40,6 +41,18 @@ class Nnmodel(fr.Resource):
     train_start_s  = str(train_start_i)
     train_start_sr = (feat_df.cdate > train_start_s)
     train_df       = feat_df.copy()[ train_start_sr & train_end_sr ]
+    
+    # I should declare x_train to be train_df.pctlag1
+    x_train = train_df[features_l].fillna(0.0)
+    # I should declare y_train to be train_df.pctlead
+    y_train = train_df.pctlead
+    # I should use model to "fit" straight line to x_train and y_train
+    x_train_a = np.array(x_train)
+    y_train_a = np.array(y_train)
+    # I should use Keras to fit a model here.
+    # Keras kmodel wants a 1-hot encoded class.
+    ytrain1h_l = [[0,1] if updown else [1,0] for updown in train_df.updown]
+    ytrain1h_a = np.array(ytrain1h_l).reshape(-1,2)
     
     pdb.set_trace()    
     return {'nothing':'yet'}

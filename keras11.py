@@ -171,7 +171,6 @@ class KerasService(fr.Resource):
     x_train = train_df[features_l].fillna(0.0)
     # I should declare y_train to be train_df.pctlead
     y_train = train_df.pctlead
-    # I should create a Linear Regression model
     # I should use model to "fit" straight line to x_train and y_train
     x_train_a = np.array(x_train)
     y_train_a = np.array(y_train)
