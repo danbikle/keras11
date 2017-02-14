@@ -62,6 +62,10 @@ class Nnmodel(fr.Resource):
       return {'badnews':'hlayers < 1'}
     if hlayers > 4:
       return {'badnews':'hlayers > 4'}
+    for l_i in range(hlayers):
+      # I should create a hidden layer with neurons here
+      kmodel.add(keras.layers.core.Dense(neurons))
+      kmodel.add(keras.layers.core.Activation('relu'))
     
     pdb.set_trace()    
     return {'nothing':'yet'}
