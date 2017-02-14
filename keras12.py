@@ -57,6 +57,7 @@ class Nnmodel(fr.Resource):
     features_i = len(features_l)
     kmodel.add(keras.layers.core.Dense(neurons, input_shape=(features_i,)))
     kmodel.add(keras.layers.core.Activation('relu'))
+    kmodel.add(keras.layers.core.Dropout(0.1))
     # hlayers should be 1, 2, 3, 4
     if hlayers < 1:
       return {'badnews':'hlayers < 1'}
@@ -66,6 +67,7 @@ class Nnmodel(fr.Resource):
       # I should create a hidden layer with neurons here
       kmodel.add(keras.layers.core.Dense(neurons))
       kmodel.add(keras.layers.core.Activation('relu'))
+      kmodel.add(keras.layers.core.Dropout(0.1))
     # I should create softmax output layer which 'match' elements of ytrain1h_a
     class_i = len(ytrain1h_a[0])
 
@@ -77,6 +79,12 @@ class Nnmodel(fr.Resource):
     # I should collect predictions for yr2predict
     xtest_a       = np.array(test_yr_df[features_l].fillna(0.0))
     predictions_a = kmodel.predict(xtest_a)[:,1]
+    predictions_l = predictions_a.tolist()
+    # I should copy test_yr_df to predictions_df
+    predictions_df = test_yr_df.copy()
+    predictions_df['prediction'] = predictions_l
+    predictions_df['eff'] = np.sign(predictions_df.prediction-0.5) * predictions_df.pctlead
+    predictions_df['acc'] = (predictions_df.eff > 0).astype(int)
     
     pdb.set_trace()    
     return {'nothing':'yet'}
