@@ -24,7 +24,8 @@ class Nnmodel(fr.Resource):
     if not local: # I should see fl.request.args
       features = fl.request.args.get('features', 'pctlag1,slope3,dom')
     features_l = features.split(',')
-      
+    col_l      = ['cdate','closep','pctlead','updown']+features_l
+    pdb.set_trace()
     return {'nothing':'yet'}
 
 api.add_resource(Nnmodel, '/nnmodel/<tkr>/<yr2predict>/<int:yrs2train>/<int:hlayers>/<int:neurons>')
