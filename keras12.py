@@ -19,7 +19,12 @@ api         = fr.Api(application)
 
 class Nnmodel(fr.Resource):
   # This method should create a model to predict yr2predict.
-  def get(self,tkr='IBM',yr2predict='2017',yrs2train=10,hlayers=1, neurons=4):
+  def get(self,local=False, tkr='SPY',yr2predict='2017',yrs2train=10,hlayers=1,neurons=4,features='pctlag1,slope2,moy'):      
+    # I should get prices and features for tkr:
+    if not local: # I should see fl.request.args
+      features = fl.request.args.get('features', 'pctlag1,slope3,dom')
+    features_l = features.split(',')
+      
     return {'nothing':'yet'}
 
 api.add_resource(Nnmodel, '/nnmodel/<tkr>/<yr2predict>/<int:yrs2train>/<int:hlayers>/<int:neurons>')
