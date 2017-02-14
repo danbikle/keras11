@@ -53,6 +53,9 @@ class Nnmodel(fr.Resource):
     # Keras kmodel wants a 1-hot encoded class.
     ytrain1h_l = [[0,1] if updown else [1,0] for updown in train_df.updown]
     ytrain1h_a = np.array(ytrain1h_l).reshape(-1,2)
+    kmodel     = keras.models.Sequential()
+    features_i = len(features_l)
+    kmodel.add(keras.layers.core.Dense(neurons, input_shape=(features_i,)))
     
     pdb.set_trace()    
     return {'nothing':'yet'}
