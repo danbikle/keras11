@@ -56,6 +56,12 @@ class Nnmodel(fr.Resource):
     kmodel     = keras.models.Sequential()
     features_i = len(features_l)
     kmodel.add(keras.layers.core.Dense(neurons, input_shape=(features_i,)))
+    kmodel.add(keras.layers.core.Activation('relu'))
+    # hlayers should be 1, 2, 3, 4
+    if hlayers < 1:
+      return {'badnews':'hlayers < 1'}
+    if hlayers > 4:
+      return {'badnews':'hlayers > 4'}
     
     pdb.set_trace()    
     return {'nothing':'yet'}
