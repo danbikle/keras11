@@ -66,6 +66,13 @@ class Nnmodel(fr.Resource):
       # I should create a hidden layer with neurons here
       kmodel.add(keras.layers.core.Dense(neurons))
       kmodel.add(keras.layers.core.Activation('relu'))
+    # I should create softmax output layer which 'match' elements of ytrain1h_a
+    class_i = len(ytrain1h_a[0])
+
+    kmodel.add(keras.layers.core.Dense(class_i))
+    kmodel.add(keras.layers.core.Activation('softmax'))
+    kmodel.compile(loss='categorical_crossentropy', optimizer='adam')
+    kmodel.fit(x_train_a, ytrain1h_a, batch_size=1, nb_epoch=4)
     
     pdb.set_trace()    
     return {'nothing':'yet'}
