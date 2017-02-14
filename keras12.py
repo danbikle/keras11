@@ -96,6 +96,9 @@ class Nnmodel(fr.Resource):
 
     # I should talk to the End-User:
     return {'tkr':                      tkr
+            ,'hlayers':                 hlayers
+            ,'neurons':                 neurons
+            ,'features':                features
             ,'yr2predict':              yr2predict
             ,'yrs2train':               yrs2train
             ,'Effectiveness':           effectiveness_f
