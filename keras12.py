@@ -25,8 +25,23 @@ class Nnmodel(fr.Resource):
       features = fl.request.args.get('features', 'pctlag1,slope3,dom')
     features_l = features.split(',')
     col_l      = ['cdate','closep','pctlead','updown']+features_l
-    pdb.set_trace()
-    feat_df    = keras11.genf(tkr)[col_l]    
+
+    feat_df    = keras11.genf(tkr)[col_l]
+
+    # I should copy test_yr-observations (about 252) from feat_df into test_yr_df.
+    test_start_sr = (feat_df.cdate > yr2predict)
+    test_end_sr   = (feat_df.cdate < str(int(yr2predict)+1))
+    test_yr_df    = feat_df.copy()[(test_start_sr & test_end_sr)]
+
+    # I should copy train_i-years of observations before test_yr from feat_df into train_df
+    train_i        = yrs2train
+    train_end_sr   = (feat_df.cdate < yr2predict)
+    train_start_i  = int(yr2predict) - train_i
+    train_start_s  = str(train_start_i)
+    train_start_sr = (feat_df.cdate > train_start_s)
+    train_df       = feat_df.copy()[ train_start_sr & train_end_sr ]
+    
+    pdb.set_trace()    
     return {'nothing':'yet'}
 
 api.add_resource(Nnmodel, '/nnmodel/<tkr>/<yr2predict>/<int:yrs2train>/<int:hlayers>/<int:neurons>')

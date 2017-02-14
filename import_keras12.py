@@ -10,5 +10,5 @@ import sys
 import keras12
 
 s10 = keras12.Nnmodel()
-oput = s10.get(local=True, tkr='SPY',yr2predict='2017',yrs2train=10,hlayers=1,neurons=4,features='pctlag1,slope2,moy')
+oput = s10.get(local=True, tkr='SPY',yr2predict='2017',yrs2train=1,hlayers=1,neurons=4,features='pctlag1,slope2,moy')
 print(oput)
