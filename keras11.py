@@ -37,7 +37,7 @@ class SKService(fr.Resource):
     algo_s = 'Linear Regression'
 
     # I should get prices for tkr:
-    prices0_df = pd.read_csv('http://ichart.finance.yahoo.com/table.csv?s='+tkr)
+    prices0_df = pd.read_csv('http://tkrprice.herokuapp.com/static/CSV/history/'+tkr+'.csv')
 
     prices1_df = prices0_df[['Date','Close']].sort_values(['Date'])
     prices1_df.columns = ['Date','Price']
@@ -108,10 +108,10 @@ api.add_resource(SKService, '/skservice/<tkr>/<yr2predict>/<int:yrs2train>')
 # Then it should return a DF full of features.
 def genf(tkr):
   # I should get closing-prices
-  prices0_df         = pd.read_csv('http://ichart.finance.yahoo.com/table.csv?s='+tkr)
-  feat_df = prices0_df[['Date','Close']].sort_values(['Date'])
+  prices0_df = pd.read_csv('http://tkrprice.herokuapp.com/static/CSV/history/'+tkr+'.csv')
+  feat_df    = prices0_df[['Date','Close']].sort_values(['Date'])
   feat_df.columns = ['cdate','closep']
-  pctlead_sr         = (100.0*(feat_df.closep.shift(-1) - feat_df.closep) / feat_df.closep).fillna(0)
+  pctlead_sr      = (100.0*(feat_df.closep.shift(-1)-feat_df.closep)/feat_df.closep).fillna(0)
   feat_df['pctlead'] = np.round(pctlead_sr,3)
   feat_df['updown']  = [int(pctlead > 0.0) for pctlead in feat_df.pctlead]
   
