@@ -74,7 +74,7 @@ class Nnmodel(fr.Resource):
     kmodel.add(keras.layers.core.Dense(class_i))
     kmodel.add(keras.layers.core.Activation('softmax'))
     kmodel.compile(loss='categorical_crossentropy', optimizer='adam')
-    kmodel.fit(x_train_a, ytrain1h_a, batch_size=1, nb_epoch=4)
+    kmodel.fit(x_train_a, ytrain1h_a, batch_size=1, epochs=4)
 
     # I should collect predictions for yr2predict
     xtest_a       = np.array(test_yr_df[features_l].fillna(0.0))

@@ -185,7 +185,7 @@ class KerasService(fr.Resource):
     kmodel.add(keras.layers.core.Dense(2)) # because I have 2 classes: up and down
     kmodel.add(keras.layers.core.Activation('softmax'))
     kmodel.compile(loss='categorical_crossentropy', optimizer='adam')
-    kmodel.fit(x_train_a, ytrain1h_a, batch_size=1, nb_epoch=2)
+    kmodel.fit(x_train_a, ytrain1h_a, batch_size=1, epochs=2)
 
     # I should collect predictions for yr2predict
     xtest_a       = np.array(test_yr_df[features_l].fillna(0.0))
