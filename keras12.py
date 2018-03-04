@@ -56,7 +56,7 @@ class Nnmodel(fr.Resource):
     kmodel     = keras.models.Sequential()
     features_i = len(features_l)
     kmodel.add(keras.layers.core.Dense(neurons, input_shape=(features_i,)))
-    kmodel.add(keras.layers.core.Activation('relu'))
+    kmodel.add(keras.layers.core.Activation('linear'))
     kmodel.add(keras.layers.core.Dropout(0.1))
     # hlayers should be 1, 2, 3, 4
     if hlayers < 1:
