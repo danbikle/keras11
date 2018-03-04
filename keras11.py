@@ -181,7 +181,7 @@ class KerasService(fr.Resource):
     kmodel     = keras.models.Sequential()
     features_i = len(features_l)
     kmodel.add(keras.layers.core.Dense(features_i, input_shape=(features_i,)))
-    kmodel.add(keras.layers.core.Activation('relu'))
+    kmodel.add(keras.layers.core.Activation('linear'))
     kmodel.add(keras.layers.core.Dense(2)) # because I have 2 classes: up and down
     kmodel.add(keras.layers.core.Activation('softmax'))
     kmodel.compile(loss='categorical_crossentropy', optimizer='adam')

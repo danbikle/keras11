@@ -25,8 +25,8 @@ I suggest that you follow the Simple Instructions.
 
   * Install VirtualBox on your laptop
   * Import this VirtualBox Appliance:
-  * https://drive.google.com/file/d/0Bx3iDDAtxxI4U3oycjR0RXpJblU
-  * Above Appliance is 8.1 GB
+  * https://drive.google.com/file/d/10p1W7kqzxE69jODhUzcb-qi-osN4htO-
+  * Above Appliance is 13 GB
   * Start the appliance and login as ann, passwd: a
   * Clone the keras11 repo with this shell syntax:
 ```bash
@@ -141,8 +141,7 @@ conda install -c conda-forge flask-restful
 ```
   * Next, install more packages into Anaconda:
 ```bash
-conda install psycopg2
-conda install keras
+conda install psycopg2 sqlalchemy keras
 ```
 
   * Next, Clone the keras11 repo with this shell syntax:
